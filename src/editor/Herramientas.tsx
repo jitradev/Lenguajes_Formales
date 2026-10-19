@@ -153,7 +153,7 @@ export function Informe({ lineas, titulo = 'Comprobación' }: { lineas: LineaInf
   if (!lineas.length) return null;
   return (
     <div className="informe" aria-live="polite">
-      <h3>{titulo}</h3>
+      {titulo && <h3>{titulo}</h3>}
       <ul>
         {lineas.map((l, i) => (
           <li key={i} className={`linea ${l.nivel}`}>

@@ -1,6 +1,6 @@
 import { BLOQUES } from '../ejercicios/registro';
 import { borrarProgreso, useResueltos } from '../progreso';
-import { NOMBRE_TIPO } from './EjercicioPagina';
+import { nombreTipo } from './EjercicioPagina';
 
 export function Inicio() {
   const resueltos = useResueltos();
@@ -103,7 +103,7 @@ export function TemaPagina({ id }: { id: string }) {
               </span>
               <span className="num-ej">{e.id}</span>
               <span className="tit">{e.titulo}</span>
-              <span className="etiqueta-tipo">{NOMBRE_TIPO[e.tipo]}</span>
+              <span className="etiqueta-tipo">{nombreTipo(e)}</span>
             </a>
           </li>
         ))}

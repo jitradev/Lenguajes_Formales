@@ -1,11 +1,12 @@
 import { tema11 } from './bloque1/tema11';
 import { tema12 } from './bloque1/tema12';
 import { tema13 } from './bloque1/tema13';
+import { tema21 } from './bloque2/tema21';
 import { Bloque, Ejercicio, Tema } from './tipos';
 
 export const BLOQUES: Bloque[] = [
   { id: '1', titulo: 'Autómatas finitos', temas: [tema11, tema12, tema13], disponible: true },
-  { id: '2', titulo: 'Expresiones regulares', temas: [], disponible: false },
+  { id: '2', titulo: 'Expresiones regulares', temas: [tema21], disponible: true },
   { id: '3', titulo: 'Gramáticas', temas: [], disponible: false },
 ];
 

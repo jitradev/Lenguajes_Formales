@@ -8,6 +8,8 @@ import { Analizar } from './tipos/Analizar';
 import { Disenar } from './tipos/Disenar';
 import { Equivalencia } from './tipos/Equivalencia';
 import { Minimizar } from './tipos/Minimizar';
+import { Pertenencia } from './tipos/Pertenencia';
+import { Preguntas } from './tipos/Preguntas';
 import { Cierres, Trazar } from './tipos/TrazarCierres';
 
 export const NOMBRE_TIPO: Record<Ejercicio['tipo'], string> = {
@@ -18,7 +20,11 @@ export const NOMBRE_TIPO: Record<Ejercicio['tipo'], string> = {
   trazar: 'Trazar',
   cierres: 'Cierres ε',
   'afn-afd': 'AFN → AFD',
+  pertenencia: 'Pertenencia',
+  preguntas: 'Preguntas',
 };
+
+export const nombreTipo = (e: Ejercicio) => e.nombreTipo ?? NOMBRE_TIPO[e.tipo];
 
 function Cuerpo({ ej, onResuelto }: { ej: Ejercicio; onResuelto: () => void }) {
   switch (ej.tipo) {
@@ -36,6 +42,10 @@ function Cuerpo({ ej, onResuelto }: { ej: Ejercicio; onResuelto: () => void }) {
       return <Cierres ej={ej} onResuelto={onResuelto} />;
     case 'afn-afd':
       return <AFNaAFD ej={ej} onResuelto={onResuelto} />;
+    case 'pertenencia':
+      return <Pertenencia ej={ej} onResuelto={onResuelto} />;
+    case 'preguntas':
+      return <Preguntas ej={ej} onResuelto={onResuelto} />;
   }
 }
 
@@ -62,7 +72,7 @@ export function EjercicioPagina({ id }: { id: string }) {
       </nav>
       <header className="cabecera-ej">
         <div>
-          <span className="etiqueta-tipo">{NOMBRE_TIPO[ej.tipo]}</span>
+          <span className="etiqueta-tipo">{nombreTipo(ej)}</span>
           <h1>
             <span className="num-ej">{ej.id}</span> {ej.titulo}
           </h1>

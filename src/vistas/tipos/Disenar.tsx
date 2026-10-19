@@ -16,7 +16,7 @@ export function Disenar({ ej, onResuelto }: { ej: EjDisenar; onResuelto: () => v
   const tabla = useMemo(() => (ej.tablaDada ? desdeCompacto(ej.tablaDada) : null), [ej]);
 
   const comprobar = () => {
-    const r = comprobarAutomata(a, referencia, { permiteAFN: ej.permiteAFN, maxEstados: ej.maxEstados });
+    const r = comprobarAutomata(a, referencia, { permiteAFN: ej.permiteAFN, maxEstados: ej.maxEstados, exigirMinimo: ej.exigirMinimo });
     setInforme(r.lineas);
     if (r.resuelto) onResuelto();
   };

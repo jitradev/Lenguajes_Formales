@@ -16,6 +16,8 @@ interface Base {
   pistas?: string[];
   /** Comentario que se enseña al resolverlo. */
   alResolver?: string;
+  /** Etiqueta del tipo en las listas, si no vale la genérica. */
+  nombreTipo?: string;
 }
 
 /** Diseñar un autómata a partir del enunciado y comprobar si es correcto y completo. */
@@ -27,6 +29,8 @@ export interface EjDisenar extends Base {
   permiteAFN?: boolean;
   /** Tope de estados, si el enunciado pide «lo más pequeño posible». */
   maxEstados?: number;
+  /** Exigir el AFD mínimo para darlo por resuelto. */
+  exigirMinimo?: boolean;
   /** Palabras sugeridas para probar. */
   pruebas?: string[];
   /** Tabla de δ que se da en el enunciado (ejercicios de «de la tabla al dibujo»). */
@@ -81,7 +85,48 @@ export interface EjAFNaAFD extends Base {
   pedirMinimo?: boolean;
 }
 
-export type Ejercicio = EjDisenar | EjAnalizar | EjEquivalencia | EjMinimizar | EjTrazar | EjCierres | EjAFNaAFD;
+/** Marcar qué palabras pertenecen al lenguaje de cada expresión. */
+export interface EjPertenencia extends Base {
+  tipo: 'pertenencia';
+  alfabeto: string[];
+  expresiones: string[];
+  palabras: string[];
+}
+
+interface PreguntaBase {
+  /** «(a)», «(b)»… */
+  etiqueta?: string;
+  /** Lo que se pregunta. Admite **negrita** y `código`. */
+  texto?: string;
+  /** Alfabeto de esta pregunta, si no es el del ejercicio. */
+  alfabeto?: string[];
+  /** Comentario que se enseña cuando la respuesta es buena. */
+  explicacion?: string;
+}
+
+/** Las preguntas sueltas de los ejercicios del bloque 2. */
+export type Pregunta = PreguntaBase &
+  (
+    | { k: 'er'; lenguaje: Lenguaje } // escribir una expresión para el lenguaje
+    | { k: 'equiv'; r: string; s: string } // ¿r = s? y, si no, la palabra que lo demuestra
+    | { k: 'contraejemplo'; er: string; lenguaje: Lenguaje; sentido: 'falta' | 'sobra' } // palabra que refuta la expresión
+    | { k: 'palabras'; er: string; dentro: number; fuera: number } // dar palabras que están y que no
+    | { k: 'opcion'; opciones: string[]; correcta: number }
+    | { k: 'conjunto'; valor: string[] } // un lenguaje finito, escrito como conjunto
+    | { k: 'numero'; valor: number }
+    | { k: 'sino'; valor: boolean }
+    | { k: 'corta'; er: string } // una palabra de longitud mínima
+    | { k: 'parentesis'; er: string } // reescribir con los paréntesis que dicen a qué se aplica cada operador
+  );
+
+/** Varias preguntas sobre expresiones y lenguajes que se corrigen a la vez. */
+export interface EjPreguntas extends Base {
+  tipo: 'preguntas';
+  alfabeto: string[];
+  preguntas: Pregunta[];
+}
+
+export type Ejercicio = EjDisenar | EjAnalizar | EjEquivalencia | EjMinimizar | EjTrazar | EjCierres | EjAFNaAFD | EjPertenencia | EjPreguntas;
 
 export interface Tema {
   id: string; // '1.1'

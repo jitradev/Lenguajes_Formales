@@ -73,6 +73,14 @@ const PRED: Record<string, (w: string) => boolean> = {
   '1.3-28': (w) => w.includes('abab'),
   '1.3-29': (w) => w.endsWith('aa') || w.endsWith('bab'),
   '1.3-30': (w) => w.startsWith('a') || w.endsWith('b'),
+  '2.1-24': (w) => /^a*b$/.test(w),
+  '2.1-25': (w) => w.endsWith('1'),
+  '2.1-26': (w) => w.endsWith('10'),
+  '2.1-27': (w) => w.length >= 2 && w[w.length - 2] === '1',
+  '2.1-28': (w) => /^ab*a$/.test(w),
+  '2.1-29': (w) => [...w].filter((c) => c === 'a').length === 2,
+  '2.1-30': (w) => [...w].filter((c) => c === 'a').length % 2 === 0,
+  '2.1-31': (w) => w.endsWith('abb'),
 };
 
 describe('lenguajes de referencia', () => {
