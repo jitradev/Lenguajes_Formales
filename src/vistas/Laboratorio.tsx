@@ -48,20 +48,22 @@ export function Laboratorio() {
       </nav>
       <h1>Laboratorio</h1>
       <p className="entradilla">Dibuja lo que quieras, traza palabras y mira su tabla. Aquí no se corrige nada.</p>
-      <div className="pregunta">
-        <label>
-          Σ ={' '}
-          <input className="mono" value={sigma} onChange={(ev) => aplicarSigma(ev.target.value)} style={{ width: 160 }} />
-        </label>
-        <span className="nota">Símbolos separados por comas. Las transiciones ε se pueden usar siempre.</span>
-      </div>
-      <div className="pregunta">
-        <button className="btn-texto" onClick={() => fichero.current?.click()}>
-          Importar .txt
-        </button>
-        <button className="btn-texto" onClick={exportar} disabled={!a.estados.length}>
-          Exportar .txt
-        </button>
+      <div className="lab-cabecera">
+        <div className="pregunta">
+          <label>
+            Σ ={' '}
+            <input className="mono" value={sigma} onChange={(ev) => aplicarSigma(ev.target.value)} style={{ width: 160 }} />
+          </label>
+          <span className="nota">Símbolos separados por comas. Las transiciones ε se pueden usar siempre.</span>
+        </div>
+        <div className="grupo-fichero" title="Formato de la práctica P1a: «inicial q0», «finales q1 q2» y una transición «origen símbolo destino» por línea">
+          <button className="btn-borde" onClick={() => fichero.current?.click()}>
+            <IconoFichero subir /> Importar .txt
+          </button>
+          <button className="btn-borde" onClick={exportar} disabled={!a.estados.length}>
+            <IconoFichero /> Exportar .txt
+          </button>
+        </div>
         <input
           ref={fichero}
           type="file"
@@ -72,11 +74,8 @@ export function Laboratorio() {
             ev.target.value = '';
           }}
         />
-        <span className="nota">
-          Formato de la práctica P1a: <code>inicial q0</code>, <code>finales q1 q2</code> y una transición <code>origen símbolo destino</code> por línea.
-        </span>
       </div>
-      {errorFichero && <p className="nota" style={{ color: 'var(--carmin)' }}>{errorFichero}</p>}
+      {errorFichero && <p className="error-fichero">{errorFichero}</p>}
       <Editor valor={a} onChange={setA} permiteEpsilon activos={activos ?? undefined} />
       <div className="dos-col">
         <Probador automata={a} onActivos={setActivos} />
@@ -97,5 +96,14 @@ export function Laboratorio() {
         </div>
       </div>
     </main>
+  );
+}
+
+function IconoFichero({ subir = false }: { subir?: boolean }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 10.5 V13 H13.5 V10.5" />
+      {subir ? <path d="M8 10 V2.5 M5 5.5 L8 2.5 L11 5.5" /> : <path d="M8 2.5 V10 M5 7 L8 10 L11 7" />}
+    </svg>
   );
 }

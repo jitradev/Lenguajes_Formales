@@ -124,6 +124,15 @@ h3 { font-size: 1rem; margin: 0 0 0.5em; }
 .btn-texto:hover:not(:disabled) { background: var(--linea); color: var(--tinta); }
 .btn-texto:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn-texto.peligro { color: var(--carmin); }
+.btn-borde {
+  display: inline-flex; align-items: center; gap: 7px; background: var(--papel); color: var(--grafito);
+  border: 1px solid var(--linea); border-radius: 8px; padding: 8px 14px; font: 500 0.92rem var(--f-txt); cursor: pointer;
+}
+.btn-borde:hover:not(:disabled) { border-color: var(--carmin); color: var(--carmin); }
+.btn-borde:disabled { opacity: 0.45; cursor: not-allowed; }
+.lab-cabecera { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.grupo-fichero { display: flex; gap: 8px; }
+.error-fichero { color: var(--carmin); background: var(--rojo-claro); border-radius: 8px; padding: 8px 12px; font-size: 0.9rem; margin: 0 0 12px; }
 .sello { font-size: 0.8rem; font-weight: 700; color: var(--verde); background: var(--verde-claro); padding: 4px 10px; border-radius: 999px; }
 .sello.grande { font-size: 0.95rem; padding: 6px 14px; margin-top: 12px; }
 
